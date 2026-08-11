@@ -15,6 +15,16 @@ export function Screen({ children }: { children: React.ReactNode }) {
   return <View style={styles.screen}>{children}</View>;
 }
 
+export function PageHeader({ title, subtitle }: { title: string; subtitle?: string }) {
+  return (
+    <View style={styles.pageHeader}>
+      <View style={styles.pageHeaderAccent} />
+      <Text style={styles.pageHeaderTitle}>{title}</Text>
+      {subtitle ? <Text style={styles.pageHeaderSubtitle}>{subtitle}</Text> : null}
+    </View>
+  );
+}
+
 export function Card({ children, style }: { children: React.ReactNode; style?: object }) {
   return <View style={[styles.card, style]}>{children}</View>;
 }
@@ -106,13 +116,14 @@ export function Badge({
   tone = 'primary',
 }: {
   label: string;
-  tone?: 'primary' | 'success' | 'danger' | 'warning';
+  tone?: 'primary' | 'success' | 'danger' | 'warning' | 'accent';
 }) {
   const toneStyles: Record<string, { bg: string; fg: string }> = {
     primary: { bg: colors.primaryLight, fg: colors.primary },
     success: { bg: colors.successLight, fg: colors.success },
     danger: { bg: colors.dangerLight, fg: colors.danger },
     warning: { bg: colors.warningLight, fg: colors.warning },
+    accent: { bg: colors.accent, fg: colors.primary },
   };
   const t = toneStyles[tone];
   return (
@@ -126,6 +137,32 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     backgroundColor: colors.background,
+  },
+  pageHeader: {
+    backgroundColor: colors.primary,
+    paddingTop: spacing.lg,
+    paddingBottom: spacing.lg,
+    paddingHorizontal: spacing.md,
+    borderBottomLeftRadius: radius.xl,
+    borderBottomRightRadius: radius.xl,
+  },
+  pageHeaderAccent: {
+    width: 40,
+    height: 5,
+    borderRadius: 3,
+    backgroundColor: colors.accent,
+    marginBottom: spacing.sm,
+  },
+  pageHeaderTitle: {
+    fontSize: 26,
+    fontWeight: '800',
+    color: colors.textOnPrimary,
+  },
+  pageHeaderSubtitle: {
+    fontSize: 15,
+    color: colors.accent,
+    marginTop: 2,
+    fontWeight: '600',
   },
   card: {
     backgroundColor: colors.card,
@@ -169,8 +206,8 @@ const styles = StyleSheet.create({
   },
   buttonSecondary: {
     backgroundColor: colors.card,
-    borderWidth: 1,
-    borderColor: colors.border,
+    borderWidth: 1.5,
+    borderColor: colors.primary,
   },
   buttonDanger: {
     backgroundColor: colors.danger,
@@ -222,22 +259,22 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: spacing.lg,
     bottom: spacing.lg,
-    width: 56,
-    height: 56,
-    borderRadius: 28,
-    backgroundColor: colors.primary,
+    width: 58,
+    height: 58,
+    borderRadius: 29,
+    backgroundColor: colors.accent,
     alignItems: 'center',
     justifyContent: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-    elevation: 4,
+    shadowColor: colors.primary,
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.3,
+    shadowRadius: 6,
+    elevation: 5,
   },
   fabIcon: {
-    color: '#fff',
-    fontSize: 28,
-    lineHeight: 30,
-    fontWeight: '400',
+    color: colors.primary,
+    fontSize: 30,
+    lineHeight: 32,
+    fontWeight: '700',
   },
 });

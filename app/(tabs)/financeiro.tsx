@@ -2,7 +2,7 @@ import { Ionicons } from '@expo/vector-icons';
 import React, { useMemo, useState } from 'react';
 import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
 
-import { Badge, Button, Card, EmptyState, Loading, Screen } from '@/components/ui';
+import { Badge, Button, Card, EmptyState, Loading, PageHeader, Screen } from '@/components/ui';
 import { colors, spacing } from '@/constants/theme';
 import { useData } from '@/context/DataContext';
 import { currentReferencia, formatMoeda, formatReferencia } from '@/lib/date';
@@ -31,9 +31,7 @@ export default function FinanceiroScreen() {
 
   return (
     <Screen>
-      <View style={styles.header}>
-        <Text style={styles.title}>Financeiro</Text>
-      </View>
+      <PageHeader title="Financeiro" />
 
       <View style={styles.monthBar}>
         <Pressable onPress={() => mudarMes(-1)} style={styles.monthArrow}>
@@ -92,9 +90,10 @@ function SummaryCard({
   valor: number;
   tone: 'primary' | 'success' | 'danger';
 }) {
-  const toneColor = { primary: colors.primary, success: colors.success, danger: colors.danger }[tone];
+  const toneColor = { primary: colors.primary, success: colors.success, danger: colors.warning }[tone];
   return (
     <Card style={styles.summaryCard}>
+      <View style={[styles.summaryAccent, { backgroundColor: toneColor }]} />
       <Text style={styles.summaryLabel}>{label}</Text>
       <Text style={[styles.summaryValue, { color: toneColor }]}>{formatMoeda(valor)}</Text>
     </Card>
@@ -126,21 +125,12 @@ function PagamentoItem({
 }
 
 const styles = StyleSheet.create({
-  header: {
-    paddingHorizontal: spacing.md,
-    paddingTop: spacing.lg,
-    paddingBottom: spacing.sm,
-  },
-  title: {
-    fontSize: 26,
-    fontWeight: '700',
-    color: colors.text,
-  },
   monthBar: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     gap: spacing.md,
+    paddingTop: spacing.md,
     paddingBottom: spacing.sm,
   },
   monthArrow: {
@@ -163,6 +153,14 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     paddingVertical: spacing.sm,
+    overflow: 'hidden',
+  },
+  summaryAccent: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    height: 4,
   },
   summaryLabel: {
     fontSize: 12,

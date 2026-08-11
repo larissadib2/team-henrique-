@@ -2,7 +2,7 @@ import { router } from 'expo-router';
 import React, { useMemo } from 'react';
 import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
 
-import { Badge, Card, EmptyState, Loading, Screen } from '@/components/ui';
+import { Badge, Card, EmptyState, Loading, PageHeader, Screen } from '@/components/ui';
 import { colors, spacing } from '@/constants/theme';
 import { useData } from '@/context/DataContext';
 import { DIAS_SEMANA_LONGO, todayISO } from '@/lib/date';
@@ -27,10 +27,7 @@ export default function AgendaScreen() {
 
   return (
     <Screen>
-      <View style={styles.header}>
-        <Text style={styles.title}>Agenda</Text>
-        <Text style={styles.subtitle}>{DIAS_SEMANA_LONGO[diaSemanaHoje]}</Text>
-      </View>
+      <PageHeader title="Agenda" subtitle={DIAS_SEMANA_LONGO[diaSemanaHoje]} />
       <FlatList
         data={turmasHoje}
         keyExtractor={(t) => t.id}
@@ -64,7 +61,7 @@ function TurmaHojeItem({ turma, totalAlunos, data }: { turma: Turma; totalAlunos
               {turma.horario} · {totalAlunos} aluno{totalAlunos === 1 ? '' : 's'}
             </Text>
           </View>
-          <Badge label="Fazer presença" tone="primary" />
+          <Badge label="Fazer presença" tone="accent" />
         </View>
       </Card>
     </Pressable>
@@ -72,23 +69,9 @@ function TurmaHojeItem({ turma, totalAlunos, data }: { turma: Turma; totalAlunos
 }
 
 const styles = StyleSheet.create({
-  header: {
-    paddingHorizontal: spacing.md,
-    paddingTop: spacing.lg,
-    paddingBottom: spacing.sm,
-  },
-  title: {
-    fontSize: 26,
-    fontWeight: '700',
-    color: colors.text,
-  },
-  subtitle: {
-    fontSize: 15,
-    color: colors.textMuted,
-    marginTop: 2,
-  },
   listContent: {
     paddingHorizontal: spacing.md,
+    paddingTop: spacing.md,
     paddingBottom: spacing.xl,
     gap: spacing.sm,
   },
