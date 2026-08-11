@@ -2,7 +2,7 @@ import { router } from 'expo-router';
 import React from 'react';
 import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
 
-import { Badge, Card, EmptyState, Fab, Loading, Screen } from '@/components/ui';
+import { Badge, Card, EmptyState, Fab, Loading, PageHeader, Screen } from '@/components/ui';
 import { colors, spacing } from '@/constants/theme';
 import { useData } from '@/context/DataContext';
 import { formatMoeda } from '@/lib/date';
@@ -17,10 +17,7 @@ export default function AlunosScreen() {
 
   return (
     <Screen>
-      <View style={styles.header}>
-        <Text style={styles.title}>Alunos</Text>
-        <Text style={styles.subtitle}>{alunos.length} cadastrado{alunos.length === 1 ? '' : 's'}</Text>
-      </View>
+      <PageHeader title="Alunos" subtitle={`${alunos.length} cadastrado${alunos.length === 1 ? '' : 's'}`} />
       <FlatList
         data={ordenados}
         keyExtractor={(a) => a.id}
@@ -60,23 +57,9 @@ function AlunoItem({ aluno, nomesTurmas }: { aluno: Aluno; nomesTurmas: string[]
 }
 
 const styles = StyleSheet.create({
-  header: {
-    paddingHorizontal: spacing.md,
-    paddingTop: spacing.lg,
-    paddingBottom: spacing.sm,
-  },
-  title: {
-    fontSize: 26,
-    fontWeight: '700',
-    color: colors.text,
-  },
-  subtitle: {
-    fontSize: 15,
-    color: colors.textMuted,
-    marginTop: 2,
-  },
   listContent: {
     paddingHorizontal: spacing.md,
+    paddingTop: spacing.md,
     paddingBottom: 96,
   },
   card: {

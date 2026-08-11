@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "team-henrique-app",
+    "name": "Team Henrique",
     "slug": "team-henrique-app",
     "version": "1.0.0",
     "scheme": "teamhenrique",
@@ -12,7 +12,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE"
+        "backgroundColor": "#0B2545"
       },
       "predictiveBackGestureEnabled": false
     },

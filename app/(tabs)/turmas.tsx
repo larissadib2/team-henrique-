@@ -2,7 +2,7 @@ import { router } from 'expo-router';
 import React from 'react';
 import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
 
-import { Badge, Card, EmptyState, Fab, Loading, Screen } from '@/components/ui';
+import { Badge, Card, EmptyState, Fab, Loading, PageHeader, Screen } from '@/components/ui';
 import { colors, spacing } from '@/constants/theme';
 import { useData } from '@/context/DataContext';
 import { DIAS_SEMANA, formatMoeda } from '@/lib/date';
@@ -17,10 +17,7 @@ export default function TurmasScreen() {
 
   return (
     <Screen>
-      <View style={styles.header}>
-        <Text style={styles.title}>Turmas</Text>
-        <Text style={styles.subtitle}>{turmas.length} cadastrada{turmas.length === 1 ? '' : 's'}</Text>
-      </View>
+      <PageHeader title="Turmas" subtitle={`${turmas.length} cadastrada${turmas.length === 1 ? '' : 's'}`} />
       <FlatList
         data={ordenadas}
         keyExtractor={(t) => t.id}
@@ -65,23 +62,9 @@ function TurmaItem({ turma, totalAlunos }: { turma: Turma; totalAlunos: number }
 }
 
 const styles = StyleSheet.create({
-  header: {
-    paddingHorizontal: spacing.md,
-    paddingTop: spacing.lg,
-    paddingBottom: spacing.sm,
-  },
-  title: {
-    fontSize: 26,
-    fontWeight: '700',
-    color: colors.text,
-  },
-  subtitle: {
-    fontSize: 15,
-    color: colors.textMuted,
-    marginTop: 2,
-  },
   listContent: {
     paddingHorizontal: spacing.md,
+    paddingTop: spacing.md,
     paddingBottom: 96,
   },
   card: {
